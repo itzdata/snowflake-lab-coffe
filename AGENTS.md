@@ -21,6 +21,8 @@ Son obligatorias. Si el participante pide algo que las contradiga, explica la re
 | Gold   | `COFFEE_GOLD`   | Métricas, semantic views, agentes, dashboards |
 
 - Datasets fuente: `@COFFEE_BRONZE.LANDING.STG_DATASETS/<fuente>/` (solo lectura).
+  Fuentes disponibles (`superstore`, `supermercado`, `rrhh`, `churn`, `airbnb`), sus columnas y cuidados de carga:
+  ver **`datasets/CATALOGO.md`** — léelo antes de procesar una fuente.
 - File formats: `COFFEE_BRONZE.LANDING.FF_CSV`, `FF_JSON`, `FF_PARQUET`.
 - Rol: `COFFEE_LAB_PARTICIPANT`. Warehouse: `COMPUTE_WH`.
 
