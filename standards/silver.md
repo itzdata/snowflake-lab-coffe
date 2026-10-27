@@ -8,7 +8,7 @@
 - `TRIM`, `INITCAP`/`UPPER` en catálogos, normalizar nulos (`NULLIF(TRIM(x), '')`).
 - Deduplicar con `QUALIFY ROW_NUMBER() OVER (PARTITION BY <llave> ORDER BY _LOADED_TS DESC) = 1`.
 - Agregar `_UPDATED_TS = CURRENT_TIMESTAMP()`.
-- Materialización recomendada: **dynamic table** `TARGET_LAG = '24 hours'`, `WAREHOUSE = COMPUTE_WH`
+- Materialización recomendada: **dynamic table** `TARGET_LAG = '1 day'` por defecto (si el participante pide una frecuencia menor, se acepta sin objeciones), `WAREHOUSE = COMPUTE_WH`
   (o tabla CTAS si el participante prefiere simplicidad). Si es DT, nombre `STG_<ENTIDAD>` igual (el prefijo `DT_` es opcional).
 
 ## 2. Sin enriquecimiento con IA

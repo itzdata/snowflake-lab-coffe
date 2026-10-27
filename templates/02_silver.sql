@@ -7,7 +7,7 @@ CREATE SCHEMA IF NOT EXISTS COFFEE_SILVER.{{INI}}_{{FUENTE}}
 
 -- 1. STG_: tipado, limpieza, deduplicación (dynamic table)
 CREATE OR REPLACE DYNAMIC TABLE COFFEE_SILVER.{{INI}}_{{FUENTE}}.STG_ORDERS
-  TARGET_LAG = '24 hours' WAREHOUSE = COMPUTE_WH
+  TARGET_LAG = '1 day' WAREHOUSE = COMPUTE_WH
   COMMENT = 'Órdenes tipadas y deduplicadas | owner: {{OWNER}} | fuente: {{FUENTE}}'
 AS
 SELECT

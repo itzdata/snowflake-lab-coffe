@@ -15,7 +15,8 @@ description: Lleva una fuente de datos del stage COFFEE_BRONZE.LANDING.STG_DATAS
    Si falta nombre o fuente, pregúntalo con una sola pregunta. Si la fuente no existe, muestra las disponibles:
    `LIST @COFFEE_BRONZE.LANDING.STG_DATASETS;`
 3. `USE ROLE COFFEE_LAB_PARTICIPANT; USE WAREHOUSE COMPUTE_WH;`
-4. Revisa colisión de esquema: `SHOW SCHEMAS LIKE '<INI>_<FUENTE>' IN DATABASE COFFEE_BRONZE;` (ver regla en AGENTS.md).
+4. Revisa colisión de esquema y de nombres (regla de existencia de `AGENTS.md`): `SHOW SCHEMAS LIKE '<INI>_<FUENTE>' IN DATABASE COFFEE_BRONZE;` (ver regla en AGENTS.md).
+   Antes de **cada** `CREATE` de cualquier objeto (tabla, vista, dynamic table, semantic view, agente, procedimiento, app) valida con `SHOW ... LIKE` / `INFORMATION_SCHEMA` que el nombre con su prefijo no exista; si existe, aplica la regla de `AGENTS.md` (mismo owner → pedir confirmación; otro owner → no tocar).
 5. Presenta un plan corto (objetos a crear por capa con sus FQN) y pide confirmación una vez.
 
 ## Paso 1 — Bronze
@@ -39,9 +40,16 @@ description: Lleva una fuente de datos del stage COFFEE_BRONZE.LANDING.STG_DATAS
 - Dashboard → `APP_<FUENTE>_DASHBOARD` en Streamlit (skill `streamlit-in-workspaces`), en `participants/<INI>_<FUENTE>/app/`, leyendo solo de Gold.
 - Guardar en `04_product.sql`.
 
+## Paso 5 — Procedimiento de reproceso
+- Crear **un único** `SP_REFRESH_<FUENTE>()` en `COFFEE_GOLD.<INI>_<FUENTE>` con `templates/05_refresh.sql`.
+- Debe: (1) vaciar y recargar Bronze desde el stage sin duplicar, (2) refrescar Silver y Gold respetando dependencias, (3) devolver conteos por objeto.
+- Probarlo con `CALL` y comparar los conteos con la carga inicial; ejecutarlo dos veces debe dar lo mismo. Guardar en `05_refresh.sql`.
+- Frecuencia: dynamic tables con `TARGET_LAG = '1 day'` por defecto; si el participante pide otra frecuencia (o una task `TSK_`), aplícala sin objeciones.
+
 ## Cierre
 Entrega al participante:
 - Tabla resumen de objetos creados por capa (FQN) y conteos.
+- Cómo ejecutar el reproceso: `CALL COFFEE_GOLD.<INI>_<FUENTE>.SP_REFRESH_<FUENTE>();` y la frecuencia de actualización configurada.
 - 3 preguntas de ejemplo para el agente / cómo abrir el dashboard.
 
 ## Prohibido

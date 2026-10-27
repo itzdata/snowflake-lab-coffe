@@ -31,7 +31,7 @@ Formato general: `UPPER_SNAKE_CASE`, sin acentos, sin espacios, sin comillas dob
 | `STRM_` | Stream |
 | `TSK_` | Task |
 | `PIPE_` | Snowpipe |
-| `FN_` / `SP_` | Función / procedimiento |
+| `FN_` / `SP_` | Función / procedimiento. Cada esquema de trabajo en Gold lleva un único `SP_REFRESH_<FUENTE>` (reproceso total) |
 
 ## Columnas
 | Tipo | Patrón | Ejemplo |
