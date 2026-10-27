@@ -21,8 +21,9 @@ Son obligatorias. Si el participante pide algo que las contradiga, explica la re
 | Gold   | `COFFEE_GOLD`   | Métricas, semantic views, agentes, dashboards |
 
 - Datasets fuente: `@COFFEE_BRONZE.LANDING.STG_DATASETS/<fuente>/` (solo lectura).
-  Hay 20 fuentes (banca, retail, alimentos), cada una en su carpeta con un único CSV consolidado
-  (`banca_*`, `retail_*`, `alimentos_*`). Columnas, grano y cuidados de cada una: **`datasets/CATALOGO.md`** — léelo antes de procesar una fuente.
+  Hay 45 fuentes por rubro, cada una en su carpeta con un único CSV consolidado. Prefijos: \anca_\, \seguros_\, etail_\, \limentos_\, \vicola_\, \gro_\,
+  \cemento_\, \pinturas_\, \energia_\, \	elecom_\, \gua_\, \gobierno_\, \petroleo_\, \	extil_\, \utomotriz_\, \educacion_\, \	i_\, \software_\, \servicios_ti_\.
+  Columnas, grano y cuidados de cada una: **\datasets/CATALOGO.md\** — léelo antes de procesar una fuente.
   Si el participante dice solo el tema (p. ej. «ventas»), propón las fuentes que coinciden y pregunta cuál.
 - File formats: `COFFEE_BRONZE.LANDING.FF_CSV`, `FF_JSON`, `FF_PARQUET`.
 - Rol: `COFFEE_LAB_PARTICIPANT`. Warehouse: `COMPUTE_WH`.
