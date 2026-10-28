@@ -10,6 +10,29 @@ Las fuentes de banca y retail operan en Centroamérica y Colombia y están en US
 
 **Cómo usarlo:** cada fuente trae su prompt listo en la sección de detalle; solo reemplaza `<Nombre Apellido>`, envíalo en Cortex Code y deja que trabaje.
 
+## Explora los datos antes de empezar
+En Snowsight puedes consultar el archivo directo en el stage, **sin crear tablas**. Cambia `<fuente>` por el nombre de tu carpeta y ejecútalo:
+
+```sql
+USE ROLE COFFEE_LAB_PARTICIPANT;
+USE WAREHOUSE COMPUTE_WH;
+
+SELECT t.$1, t.$2, t.$3, t.$4, t.$5, t.$6, t.$7, t.$8, t.$9, t.$10
+FROM @COFFEE_BRONZE.LANDING.STG_DATASETS/<fuente>/ t
+LIMIT 100;
+```
+
+- Sobre archivos en el stage no funciona `SELECT *`: se usan columnas posicionales `$1`, `$2`, `$3`…
+- La primera fila trae los nombres de las columnas (el encabezado del CSV) y los valores llegan como texto.
+- Para ver el nombre y el tipo de cada columna:
+
+```sql
+SELECT COLUMN_NAME, TYPE
+FROM TABLE(INFER_SCHEMA(
+  LOCATION => '@COFFEE_BRONZE.LANDING.STG_DATASETS/<fuente>/',
+  FILE_FORMAT => 'COFFEE_BRONZE.LANDING.FF_CSV'));
+```
+
 **¿No ves tu rubro?** Cada participante puede elegir la fuente más cercana a su industria: seguros, banca, agroindustria, energía, telecom, agua, sector público, petróleo, textil, automotriz, educación, tecnología, cemento, pinturas, avícola, alimentos o retail.
 
 ## Catálogo por rubro
